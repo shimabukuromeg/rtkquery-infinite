@@ -1,11 +1,12 @@
 import type { NextPage } from 'next'
 import {
-  VStack, Text, Heading, Image, Flex, Button, HStack,
+  VStack, Text, Heading, Image, Flex, Button, HStack, Link
 } from '@chakra-ui/react'
 import { useListCatsQuery, infinite } from '../services/cats'
 import { useDispatch, useSelector } from 'react-redux';
 import { increment, decrement } from '../features/currentPage/currentPageSlice';
 import { RootState } from '../store';
+import NextLink from 'next/link';
 
 const Home: NextPage = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,9 @@ const Home: NextPage = () => {
     <VStack p={4}>
       <Heading>無限ローディング実装サンプル</Heading>
       <Text fontSize='3xl'>{`現在のページ：${currentPage}`}</Text>
+      <NextLink href='/hello-world' passHref>
+        <Link>サンプルページへ</Link>
+      </NextLink>
       <VStack>
         {
           result?.map((cat, index) => (
