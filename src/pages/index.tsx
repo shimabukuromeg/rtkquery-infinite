@@ -19,9 +19,6 @@ const Home: NextPage = () => {
     <VStack p={4}>
       <Heading>無限ローディング実装サンプル</Heading>
       <Text fontSize='3xl'>{`現在のページ：${currentPage}`}</Text>
-      <NextLink href='/hello-world' passHref>
-        <Link>サンプルページへ</Link>
-      </NextLink>
       <NextLink href='/infinite-scroll' passHref>
         <Link>無限ローディング（スクロール）実装サンプルページへ</Link>
       </NextLink>
