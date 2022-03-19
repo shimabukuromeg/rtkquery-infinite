@@ -1,34 +1,46 @@
 import type { NextPage } from 'next'
 import {
-  VStack, Text, Heading, Image, Flex, Button,
+  VStack, Text, Heading, Image, Flex, Button, HStack,
 } from '@chakra-ui/react'
-import { Counter } from '../features/counter/Counter'
 import { useListCatsQuery, infinite } from '../services/cats'
-import { useState, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { increment, decrement } from '../features/currentPage/currentPageSlice';
+import { RootState } from '../store';
 
 const Home: NextPage = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const dispatch = useDispatch();
+  const currentPage = useSelector((state: RootState) => state.currentPage.value)
   useListCatsQuery({ page: currentPage })
-  useListCatsQuery({ page: currentPage +1 })
+  useListCatsQuery({ page: currentPage + 1 })
   const result = infinite(currentPage)
-  console.log('result', result);
 
   return (
     <VStack p={4}>
-      <Heading>Hello, World</Heading>
-      <Text fontSize='xl'>Hello, World</Text>
+      <Heading>無限ローディング実装サンプル</Heading>
+      <Text fontSize='3xl'>{`現在のページ：${currentPage}`}</Text>
       <VStack>
         {
           result?.map((cat, index) => (
             <Flex key={cat?.id} w={400} flexDirection="column" alignItems="center">
-              <Text>{`${index + 1} ${cat?.id}`}</Text>
-              <Image alt={cat?.id} src={cat?.url} width={100} />
+              <Text>{`${index + 1}: ${cat?.id}`}</Text>
+              <Image alt={cat?.id} src={cat?.url} width={400} />
             </Flex>
           ))
         }
-        <Button onClick={() => {
-          setCurrentPage((v) => v + 1)
-        }}>もっとみる</Button>
+        <HStack spacing={8} pt={4}>
+          <Button onClick={() => {
+            if (currentPage > 1) {
+              dispatch(decrement())
+            }
+          }} colorScheme='teal' size='lg' disabled={currentPage <= 1}>
+            もっとみない
+          </Button>
+          <Button onClick={() => {
+            dispatch(increment())
+          }}
+            colorScheme='teal' size='lg'
+          >もっとみる</Button>
+        </HStack>
       </VStack>
     </VStack>
   )

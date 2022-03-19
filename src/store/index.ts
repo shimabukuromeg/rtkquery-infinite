@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from '../features/counter/counterSlice'
+import currentPageReducer from '../features/currentPage/currentPageSlice'
 import { api } from '../services/cats';
 
 export const store = configureStore({
     reducer: {
-      counter: counterReducer,
+      currentPage: currentPageReducer,
       [api.reducerPath]: api.reducer,
     },
   })

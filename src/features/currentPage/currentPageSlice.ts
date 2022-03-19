@@ -5,11 +5,11 @@ export interface CounterState {
 }
 
 const initialState: CounterState = {
-  value: 0,
+  value: 1,
 }
 
-export const counterSlice = createSlice({
-  name: 'counter',
+export const currentPageSlice = createSlice({
+  name: 'currentPage',
   initialState,
   reducers: {
     increment: (state) => {
@@ -22,13 +22,10 @@ export const counterSlice = createSlice({
     decrement: (state) => {
       state.value -= 1
     },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload
-    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const { increment, decrement } = currentPageSlice.actions
 
-export default counterSlice.reducer
+export default currentPageSlice.reducer
