@@ -1,12 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { axiosBaseQuery } from './axiosBaseQuery';
-
-type Order = 'desc' | 'asc' | 'random';
+import { store } from '../store';
 
 export type CatsRequest = {
-  order?: Order;
   page?: number;
-  limit?: number;
 };
 
 type Cat = {
@@ -22,9 +19,15 @@ export const api = createApi({
   }),
   endpoints: (build) => ({
     listCats: build.query<Cat[], CatsRequest>({
-      query: (args) => ({ url: `/images/search`, method: 'get', data: undefined, params: args }),
+      query: (args) => ({ url: `/images/search`, method: 'get', data: undefined, params: { ...args, limit: 5 } }),
     }),
   }),
 })
+
+export const infinite = (size: number) => {
+  return [...Array(size)].map((_, i) => i + 1).map((page) => {
+    return api.endpoints.listCats.select({ page })(store.getState()).data
+  }).flat();
+}
 
 export const { useListCatsQuery } = api
