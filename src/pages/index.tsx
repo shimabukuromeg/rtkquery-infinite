@@ -22,6 +22,9 @@ const Home: NextPage = () => {
       <NextLink href='/hello-world' passHref>
         <Link>サンプルページへ</Link>
       </NextLink>
+      <NextLink href='/infinite-scroll' passHref>
+        <Link>無限ローディング（スクロール）実装サンプルページへ</Link>
+      </NextLink>
       <VStack>
         {
           result?.map((cat, index) => (

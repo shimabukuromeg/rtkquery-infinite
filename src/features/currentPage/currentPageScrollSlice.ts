@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface CurrentPageState {
+export interface CurrentPageScrollState {
   value: number
 }
 
-const initialState: CurrentPageState = {
+const initialState: CurrentPageScrollState = {
   value: 1,
 }
 
-export const currentPageSlice = createSlice({
-  name: 'currentPage',
+export const currentPageScrollSlice = createSlice({
+  name: 'currentPageScroll',
   initialState,
   reducers: {
     increment: (state) => {
@@ -19,13 +19,10 @@ export const currentPageSlice = createSlice({
       // immutable state based off those changes
       state.value += 1
     },
-    decrement: (state) => {
-      state.value -= 1
-    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement } = currentPageSlice.actions
+export const { increment } = currentPageScrollSlice.actions
 
-export default currentPageSlice.reducer
+export default currentPageScrollSlice.reducer

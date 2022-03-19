@@ -18,8 +18,13 @@ export const api = createApi({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL ?? '',
   }),
   endpoints: (build) => ({
+    // NOTE: さらに読み込むボタンを押したときに無限ロードするサンプルコード用のエンドポイント
     listCats: build.query<Cat[], CatsRequest>({
       query: (args) => ({ url: `/images/search`, method: 'get', data: undefined, params: { ...args, limit: 5 } }),
+    }),
+    // NOTE: 無限スクロール用のエンドポイント
+    listCatsLimit3: build.query<Cat[], CatsRequest>({
+      query: (args) => ({ url: `/images/search`, method: 'get', data: undefined, params: { ...args, limit: 3 } }),
     }),
   }),
 })
@@ -30,4 +35,10 @@ export const infinite = (size: number) => {
   }).flat();
 }
 
-export const { useListCatsQuery } = api
+export const infiniteScroll = (size: number) => {
+  return [...Array(size)].map((_, i) => i + 1).map((page) => {
+    return api.endpoints.listCatsLimit3.select({ page })(store.getState()).data
+  }).flat();
+}
+
+export const { useListCatsQuery, useListCatsLimit3Query } = api

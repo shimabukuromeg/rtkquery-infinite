@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import currentPageReducer from '../features/currentPage/currentPageSlice'
+import currentPageScrollReducer from '../features/currentPage/currentPageScrollSlice'
 import { api } from '../services/cats';
 
 export const store = configureStore({
-    reducer: {
+    reducer: { 
       currentPage: currentPageReducer,
+      currentPageScroll: currentPageScrollReducer,
       [api.reducerPath]: api.reducer,
     },
   })
