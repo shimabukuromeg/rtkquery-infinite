@@ -37,13 +37,13 @@ const Home: NextPage = () => {
               dispatch(decrement())
             }
           }} colorScheme='teal' size='lg' disabled={currentPage <= 1}>
-            もっとみない
+            Load Less
           </Button>
           <Button onClick={() => {
             dispatch(increment())
           }}
             colorScheme='teal' size='lg'
-          >もっとみる</Button>
+          >Load More</Button>
         </HStack>
       </VStack>
     </VStack>
