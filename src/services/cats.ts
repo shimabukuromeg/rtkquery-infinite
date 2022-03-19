@@ -21,7 +21,7 @@ export const api = createApi({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL ?? '',
   }),
   endpoints: (build) => ({
-    listCats: build.query<Cat, CatsRequest>({
+    listCats: build.query<Cat[], CatsRequest>({
       query: (args) => ({ url: `/images/search`, method: 'get', data: undefined, params: args }),
     }),
   }),
