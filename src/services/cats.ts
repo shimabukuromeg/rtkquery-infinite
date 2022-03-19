@@ -29,14 +29,14 @@ export const api = createApi({
   }),
 })
 
-export const infinite = (size: number) => {
-  return [...Array(size)].map((_, i) => i + 1).map((page) => {
+export const infinite = (currentPage: number) => {
+  return [...Array(currentPage)].map((_, i) => i + 1).map((page) => {
     return api.endpoints.listCats.select({ page })(store.getState()).data
   }).flat();
 }
 
-export const infiniteScroll = (size: number) => {
-  return [...Array(size)].map((_, i) => i + 1).map((page) => {
+export const infiniteScroll = (currentPage: number) => {
+  return [...Array(currentPage)].map((_, i) => i + 1).map((page) => {
     return api.endpoints.listCatsLimit3.select({ page })(store.getState()).data
   }).flat();
 }
